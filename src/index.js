@@ -23,6 +23,10 @@ fetchBreeds().then(response => response.data).then(data => {
         selectCat.appendChild(opt);
         Notiflix.Loading.remove();
     });
+    const err = document.createElement('option');
+    err.value = '0';
+    err.innerHTML = 'test error';
+    selectCat.appendChild(err);
     selectCat.style.display = 'flex';
     new SlimSelect({
         select: '.breed-select',
@@ -32,7 +36,12 @@ fetchBreeds().then(response => response.data).then(data => {
 })
     .catch(err => {
         Notiflix.Loading.remove();
-        Notiflix.Notify.failure(pError.textContent);
+        // Notiflix.Notify.failure(pError.textContent);
+        Notiflix.Report.failure(
+            'Cats API Failure',
+            pError.textContent,
+            'Close',
+        );
         console.log(err); pError.style.display = 'block';
     });
 
@@ -85,7 +94,12 @@ const getCat = (e) => {
 
     }).catch(err => {
         Notiflix.Loading.remove();
-        Notiflix.Notify.failure(pError.textContent);
+        // Notiflix.Notify.failure(pError.textContent);
+        Notiflix.Report.failure(
+            'Cats API Failure',
+            pError.textContent,
+            'Close',
+        );
     }
     );
 }
